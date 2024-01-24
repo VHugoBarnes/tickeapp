@@ -18,12 +18,13 @@ use App\Http\Controllers\Controller;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+  return Inertia::render('Welcome', [
+    'laravelVersion' => Application::VERSION,
+    'phpVersion' => PHP_VERSION,
+  ]);
 });
 
 Route::get("/test", [Controller::class, "getAutocomplete"])->name("getAutocomplete");
+Route::get("/autocomplete", [Controller::class, "getAutocompleteOptions"])->name("getAutocompleteOptions");
 Route::post("/events", [Controller::class, "getEvents"])->name("getEvents");
 Route::post("/hotels", [Controller::class, "getHotels"])->name("getHotels");
