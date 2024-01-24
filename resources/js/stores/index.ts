@@ -1,22 +1,14 @@
+import { Tab, AutoCompleteResultT, Event, Hotel } from "@/types";
 import { defineStore } from "pinia";
-
-export enum Tab {
-  event = "event",
-  hotel = "hotel"
-}
-
-export interface AutoCompleteResults { }
-export interface Event { }
-export interface Hotel { }
 
 interface State {
   loading: boolean;
   tab: Tab;
-  autocompleteResults: AutoCompleteResults[],
+  autocompleteResults: AutoCompleteResultT,
   results: Event[] | Hotel[]
 }
 
-export const useCounterStore = defineStore("results", {
+export const useResultsStore = defineStore("results", {
   state: (): State => ({
     loading: false,
     tab: Tab.event,
@@ -31,7 +23,7 @@ export const useCounterStore = defineStore("results", {
     setTab(tab: Tab) {
       this.tab = tab;
     },
-    setAutoCompleteResults(options: AutoCompleteResults[]) {
+    setAutoCompleteResults(options: AutoCompleteResultT) {
       this.autocompleteResults = options;
     },
     setResults(results: Event[] | Hotel[]) {

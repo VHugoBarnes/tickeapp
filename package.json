@@ -8,6 +8,7 @@
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
+        "@types/lodash.debounce": "^4.0.9",
         "@vitejs/plugin-vue": "^5.0.0",
         "autoprefixer": "^10.4.12",
         "axios": "^1.6.4",
@@ -20,6 +21,7 @@
         "vue-tsc": "^1.8.27"
     },
     "dependencies": {
+        "lodash.debounce": "^4.0.8",
         "pinia": "^2.1.7",
         "vuetify": "^3.5.1"
     }
