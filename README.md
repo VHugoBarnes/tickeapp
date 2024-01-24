@@ -18,3 +18,4 @@ Make calls to Ticketero API to search by venue, destination, and by performer us
   - I received small amount of data, I was wondering why, but then I realized that this information needs to be displayed as an autocomplete from the search bar, not an autocomplete as a tool where you can write up "Dal" and information about "Dallas" will come up (which is also the case).   
 - I'm not going to use Laravel as MVC, but rather as a RESTful Web Server.   
 - I'm going to create a SPA with Vue to handle dynamism (I'm going to do it with Inertia).   
+- I'm going to configure Inertia with Vue, install Guzzle and start with a simple call to autocomplete endpoint, after that I'm going to create a Figma mockup to design my solution.   
