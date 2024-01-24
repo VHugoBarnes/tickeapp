@@ -66,7 +66,7 @@ Make calls to Ticketero API to search by venue, destination, and by performer us
 5. A Card component to display the results.   
   a. So we are going to create an `Event` and `Hotel` card, and decide what type of Card to display.   
 
-### Backend
+#### Backend
 1. Create a class to easily call the base endpoint and get the JSON result.   
 2. Create a route to get autocomplete results.   
   a. We are going to get as query params a `q` to represent the query, and we are going to have a fixed limit so is not needed.   
