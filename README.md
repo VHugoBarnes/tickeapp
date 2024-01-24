@@ -19,3 +19,8 @@ Make calls to Ticketero API to search by venue, destination, and by performer us
 - I'm not going to use Laravel as MVC, but rather as a RESTful Web Server.   
 - I'm going to create a SPA with Vue to handle dynamism (I'm going to do it with Inertia).   
 - I'm going to configure Inertia with Vue, install Guzzle and start with a simple call to autocomplete endpoint, after that I'm going to create a Figma mockup to design my solution.   
+
+
+
+## What's next
+- Add a Rate Limiter would be a good idea.   
