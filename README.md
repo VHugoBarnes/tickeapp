@@ -67,11 +67,11 @@ Make calls to Ticketero API to search by venue, destination, and by performer us
   a. So we are going to create an `Event` and `Hotel` card, and decide what type of Card to display.   
 
 #### Backend
-1. Create a class to easily call the base endpoint and get the JSON result.   
+1. Create a method to easily call the base endpoint and get the JSON result.   
 2. Create a route to get autocomplete results.   
   a. We are going to get as query params a `q` to represent the query, and we are going to have a fixed limit so is not needed.   
 3. Create a route to get events.   
-  a. If the selected autocomplete option is a `destination`: This one is going to be a POST route, we are going to pass `destination` object with `latitude`, `longitude`, `radius`, and `city` as values of it. Start and end date will be fixed from current date to one week, so no need to pass them.   
+  a. If the selected autocomplete option is a `destination`: This one is going to be a POST route, we are going to pass `destination` object with `lat`, `lng`, `radius`, and `city` as values of it. Start and end date will be fixed from current date to one week, so no need to pass them.   
   b. If the selected autocomplete option is a `performer`: This one is going to be a POST route, and we are going to pass a `performerId`.   
   c. If the selected autocomplete option is a `venue`: This one is going to be a POST route, and we are going to pass a `venueId`.   
 4. Create a route to get hotels.   
@@ -80,4 +80,5 @@ Make calls to Ticketero API to search by venue, destination, and by performer us
 
 ## What's next
 - Add a Rate Limiter would be a good idea.   
+- A different input when searching for destinations to add DateTimes.   
 - A router to save the search query so we can reload or share the link.   

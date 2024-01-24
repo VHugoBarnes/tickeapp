@@ -7,13 +7,14 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Request as GuzzleRequest;
+use Illuminate\Http\Request as HttpRequest;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function getAutocomplete() {
+    private function fetchData($path, $method, $body) {
       $BASE_URL = env("API_BASE_URL");
       $API_KEY = env("API_KEY");
 
@@ -24,21 +25,140 @@ class Controller extends BaseController
         "Content-Type" => "application/json",
         "Authorization" => "Bearer $API_KEY"
       ];
-      $body = '{
-        "q": "Dallas",
-        "limit": "10"
-      }';
 
       try {
-        $request = new Request("GET", "$BASE_URL/search/autocomplete", $headers, $body);
-      $res = $httpClient->sendAsync($request)->wait();
-      $resBody = $res->getBody()->getContents();
+        $request = new GuzzleRequest($method, "$BASE_URL$path", $headers, $body);
+        $res = $httpClient->sendAsync($request)->wait();
+        $resBody = $res->getBody()->getContents();
 
-      $data = json_decode($resBody, true);
+        $data = json_decode($resBody, true);
 
-      return response()->json($data);
+        return $data;
+      } catch (\Exception $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    public function getAutocompleteOptions(HttpRequest $httpRequest) {
+
+    }
+
+    public function getHotels(HttpRequest $httpRequest) {
+      $data = null;
+      $path = "/search/hotels";
+
+      $validated = $httpRequest->validate([
+        "typeSearch"=> "required|in:destination",
+        "destination" => "required",
+        "destination.lat" => "required|numeric",
+        "destination.lng" => "required|numeric",
+        "destination.radius" => "required|numeric",
+        "destination.city" => "required|string",
+      ]);
+
+      $destination = $validated["destination"];
+        $body = [
+          "startDate" => date("Y-m-d"),
+          "endDate" => date("Y-m-d", strtotime("+7 days")),
+          "destination" => $destination,
+          "occupancies" => [
+            [
+              "rooms" => 1,
+              "adults" => 1,
+              "children" => 0
+            ]
+          ]
+        ];
+
+        $data = $this->fetchData($path, "GET", json_encode($body));
+
+        return response()->json($data);
+    }
+
+    public function getEvents(HttpRequest $httpRequest) {
+      $data = null;
+      $path = "/search/events";
+
+      $validated = $httpRequest->validate([
+        "typeSearch"=> "required|in:destination,performer,venue",
+        "destination" => "sometimes",
+        "destination.lat" => "nullable|numeric",
+        "destination.lng" => "nullable|numeric",
+        "destination.radius" => "nullable|numeric",
+        "destination.city" => "nullable|string",
+        "performerId" => "sometimes|string",
+        "venueId" => "sometimes|string",
+      ]);
+
+      $typeSearch = $validated["typeSearch"];
+      $destination = null;
+
+      if($typeSearch === "destination") {
+        if($validated["destination"] === null) {
+          return response()->json(null);
+        }
+
+        $destination = $validated["destination"];
+        $body = [
+          "startDate" => date("Y-m-d"),
+          "endDate" => date("Y-m-d", strtotime("+7 days")),
+          "searchType" => "destination",
+          "withPerformers" => false,
+          "destination" => $destination
+        ];
+
+        $data = $this->fetchData($path, "GET", json_encode($body));
+
+        return response()->json($data);
+      }
+
+      if($typeSearch === "performer") {
+        if($validated["performerId"] === null) {
+          return response()->json(null);
+        }
+
+        $performerId = $validated["performerId"];
+        $body = [
+          "searchType" => "performer",
+          "performerId" => $performerId,
+          "withPerformers" => false
+        ];
+
+        $data = $this->fetchData($path, "GET", json_encode($body));
+
+        return response()->json($data);
+      }
+
+      if($typeSearch === "venue") {
+        if($validated["venueId"] === null) {
+          return response()->json(null);
+        }
+
+        $venueId = $validated["venueId"];
+        $body = [
+          "searchType" => "venue",
+          "venueId" => $venueId,
+          "withPerformers" => false
+        ];
+
+        $data = $this->fetchData($path, "GET", json_encode($body));
+
+        return response()->json($data);
+      }
+
+      return response()->json(null);
+    }
+
+    public function getAutocomplete() {
+      try {
+        $body = '{
+          "q": "Dallas",
+          "limit": "10"
+        }';
+        $data = $this->fetchData("/search/autocomplete", "GET", $body);
+
+        return response()->json($data);
       } catch(\Exception $e) {
-        // Handle exceptions, if any
         return response()->json(['error' => $e->getMessage()], 500);
       }
     }
