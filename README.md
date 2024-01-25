@@ -85,3 +85,5 @@ Make calls to Ticketero API to search by venue, destination, and by performer us
 - Apply render patterns and a little bit of SR Principle.   
 - Add pagination and lazy loading for images.   
 - Testing.   
+- A common component for both EventResult and HotelResult for common styles.   
+- Add filters that come in the API response for events or hotels.   

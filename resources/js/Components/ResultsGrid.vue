@@ -13,28 +13,28 @@
 
     <div
       v-if="resultStore.tab === 'event'"
-      class="space-y-4"
+      class="grid grid-cols-1 md:grid-cols-2 gap-6"
     >
       <EventResult
-        v-for="event in resultStore.results"
+        v-for="event in (resultStore.results)"
         :key="event.id"
-        :result="event"
+        :result="(event as REvent)"
       />
     </div>
 
     <div
       v-if="resultStore.tab === 'hotel'"
-      class="space-y-4"
+      class="grid grid-cols-1 md:grid-cols-2 gap-6"
     >
       <HotelResult
         v-for="hotel in resultStore.results"
         :key="hotel.id"
-        :result="hotel"
+        :result="(hotel as RHotel)"
       />
     </div>
 
     <div
-      v-if="resultStore.results.length === 0"
+      v-if="resultStore.results.length === 0 && resultStore.loading === false"
       class="flex flex-col justify-center items-center space-y-2"
     >
       <svg
@@ -81,6 +81,7 @@
 import EventResult from "./EventResult.vue";
 import HotelResult from "./HotelResult.vue";
 import { useResultsStore } from "@/stores";
+import { Event as REvent, Hotel as RHotel } from "@/types";
 
 const resultStore = useResultsStore(); // We will take resultStore.results
 </script>

@@ -6,7 +6,7 @@ interface State {
   loadingAutocomplete: boolean;
   tab: Tab;
   autocompleteResults: AutoCompleteResultT,
-  results: Event[] | Hotel[]
+  results: (Event | Hotel)[]
 }
 
 export const useResultsStore = defineStore("results", {

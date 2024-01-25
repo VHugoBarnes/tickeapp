@@ -6,7 +6,7 @@
       @blur="handleBlur"
       @focus="handleFocus"
       :placeholder="placeHolder"
-      class="bg-gray-700 rounded-lg w-full"
+      class="bg-gray-700 hover:bg-gray-900 transition-colors duration-200 rounded-lg w-full"
     />
     <div
       v-if="resultsStore.loadingAutocomplete"
