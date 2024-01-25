@@ -24,7 +24,7 @@ Route::get('/', function () {
   ]);
 });
 
-Route::get("/test", [Controller::class, "getAutocomplete"])->name("getAutocomplete");
+Route::get("/test", [Controller::class, "test"])->name("getAutocomplete");
 Route::post("/autocomplete", [Controller::class, "getAutocompleteOptions"])->name("getAutocompleteOptions");
 Route::post("/events", [Controller::class, "getEvents"])->name("getEvents");
 Route::post("/hotels", [Controller::class, "getHotels"])->name("getHotels");

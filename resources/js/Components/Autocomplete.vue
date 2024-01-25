@@ -10,7 +10,7 @@
     />
     <div
       v-if="resultsStore.loadingAutocomplete"
-      class="bg-gray-600 flex flex-col space-y-1 p-2 rounded absolute top-[2.8rem] overflow-y-scroll max-h-96 w-1/2 overflow-x-hidden"
+      class="bg-gray-600 flex flex-col space-y-1 p-2 rounded absolute top-[2.8rem] z-50 overflow-y-scroll max-h-96 w-1/2 overflow-x-hidden"
     >
       <p class="animate-pulse">
         Loading...
@@ -19,7 +19,7 @@
 
     <div
       v-if="autocompleteResults.length > 0 && resultsStore.loadingAutocomplete === false"
-      class="bg-gray-600 flex flex-col space-y-1 p-2 rounded absolute top-[2.8rem] overflow-y-scroll max-h-96 w-1/2 overflow-x-hidden"
+      class="bg-gray-600 flex flex-col space-y-1 p-2 rounded absolute top-[2.8rem] z-50 overflow-y-scroll max-h-96 w-1/2 overflow-x-hidden"
     >
       <ul>
         <li

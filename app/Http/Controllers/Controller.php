@@ -14,10 +14,19 @@ class Controller extends BaseController
 {
   use AuthorizesRequests, ValidatesRequests;
 
+  public function test()
+  {
+    dd([
+      'APP_ENV' => config('app.env'),
+      'api_base_url' => config('app.api_base_url'),
+      // Add more variables as needed
+    ]);
+  }
+
   private function fetchData($path, $method, $body)
   {
-    $BASE_URL = env("API_BASE_URL");
-    $API_KEY = env("API_KEY");
+    $BASE_URL = config('app.api_base_url');
+    $API_KEY = config('app.api_key');
 
     $httpClient = new Client();
 
