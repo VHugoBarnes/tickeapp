@@ -82,3 +82,6 @@ Make calls to Ticketero API to search by venue, destination, and by performer us
 - Add a Rate Limiter would be a good idea.   
 - A different input when searching for destinations to add DateTimes.   
 - A router to save the search query so we can reload or share the link.   
+- Apply render patterns and a little bit of SR Principle.   
+- Add pagination and lazy loading for images.   
+- Testing.   

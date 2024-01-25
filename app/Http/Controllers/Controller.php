@@ -45,15 +45,16 @@ class Controller extends BaseController
     $path = "/search/autocomplete";
 
     try {
-      $validated = $httpRequest->validated([
+      $validated = $httpRequest->validate([
         "q" => "required"
       ]);
       $q = $validated["q"];
 
-      $body = "{
-          'q': '$q',
-          'limit': '10'
-        }";
+      $body = [
+        "q" => $q,
+        "limit" => "10"
+      ];
+      $body = json_encode($body);
 
       $data = $this->fetchData($path, "GET", $body);
 
@@ -73,8 +74,8 @@ class Controller extends BaseController
       $validated = $httpRequest->validate([
         "typeSearch" => "required|in:destination",
         "destination" => "required",
-        "destination.lat" => "required|numeric",
-        "destination.lng" => "required|numeric",
+        "destination.latitude" => "required|numeric",
+        "destination.longitude" => "required|numeric",
         "destination.radius" => "required|numeric",
         "destination.city" => "required|string",
       ]);
@@ -187,6 +188,7 @@ class Controller extends BaseController
           "q": "Dallas",
           "limit": "10"
         }';
+      var_dump($body);
       $data = $this->fetchData("/search/autocomplete", "GET", $body);
 
       return response()->json($data);
