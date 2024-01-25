@@ -1,8 +1,15 @@
 <template>
-  <div>
+  <div class="space-y-8">
     <h2 class="text-2xl font-bold tracking-wide leading-relaxed">
       Results
     </h2>
+
+    <div
+      class="flex items-center justify-center"
+      v-if="resultStore.loading === true"
+    >
+      <p class="text-xl font-bold tracking-wide leading-relaxed animate-pulse">Loading...</p>
+    </div>
 
     <div
       v-if="resultStore.tab === 'event'"

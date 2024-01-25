@@ -125,6 +125,8 @@ const handleSelect = async (item: any) => {
   let routeToCall;
   let body = {};
 
+  resultsStore.setLoading(true);
+
   if (resultsStore.tab === "event") {
     routeToCall = route("getEvents");
     body = {
@@ -146,13 +148,13 @@ const handleSelect = async (item: any) => {
       case "performer":
         body = {
           ...body,
-          performerId: item.id
+          performerId: item.id.toString()
         };
         break;
       case "venue":
         body = {
           ...body,
-          venueId: item.id,
+          venueId: item.id.toString(),
         };
         break;
     }
@@ -222,6 +224,7 @@ const handleSelect = async (item: any) => {
       })));
     }
   }
+  resultsStore.setLoading(false);
 };
 
 const handleInput = (event: Event) => {
