@@ -17,8 +17,8 @@ defineProps<{
   <div
     class="relative text-gray-300 sm:flex sm:justify-center sm:items-center min-h-screen bg-center bg-gray-100 dark:bg-gray-950 selection:bg-red-500 selection:text-white"
   >
-    <div class="w-full lg:max-w-7xl mx-auto p-6 lg:p-8 space-y-10">
-      <div class="flex justify-center">
+    <div class="w-full lg:w-1/2 lg:max-w-7xl mx-auto p-6 lg:p-8 space-y-10">
+      <div class="flex flex-col space-y-4 justify-center">
         <svg
           viewBox="0 0 62 65"
           fill="none"
@@ -30,11 +30,17 @@ defineProps<{
             fill="#be123c"
           />
         </svg>
+
+        <h1 class="text-center font-black text-3xl tracking-tight leading-relaxed">
+          <span>Ticke.</span><span class="text-rose-700 text-2xl">App</span>
+        </h1>
       </div>
 
       <div class="space-y-8">
-        <Tabs />
-        <Autocomplete />
+        <div class="space-y-2">
+          <Tabs />
+          <Autocomplete />
+        </div>
         <ResultsGrid />
       </div>
 
