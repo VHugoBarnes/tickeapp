@@ -9,8 +9,17 @@
       class="bg-gray-700 rounded-lg w-full"
     />
     <div
-      v-if="autocompleteResults.length > 0"
-      class="bg-gray-600 flex flex-col space-y-1 p-2 rounded absolute top-11 overflow-y-scroll max-h-96 w-1/2 overflow-x-hidden"
+      v-if="resultsStore.loadingAutocomplete"
+      class="bg-gray-600 flex flex-col space-y-1 p-2 rounded absolute top-[2.8rem] overflow-y-scroll max-h-96 w-1/2 overflow-x-hidden"
+    >
+      <p class="animate-pulse">
+        Loading...
+      </p>
+    </div>
+
+    <div
+      v-if="autocompleteResults.length > 0 && resultsStore.loadingAutocomplete === false"
+      class="bg-gray-600 flex flex-col space-y-1 p-2 rounded absolute top-[2.8rem] overflow-y-scroll max-h-96 w-1/2 overflow-x-hidden"
     >
       <ul>
         <li
@@ -102,6 +111,7 @@ const fetchData = async (query: string) => {
 
 const debouncedFetchData = debounce(async (query: string) => {
   autocompleteResults.value = await fetchData(query);
+  resultsStore.setLoadingAutocomplete(false);
   prevSearch.value = query;
 }, 1000);
 
@@ -229,6 +239,7 @@ const handleSelect = async (item: any) => {
 
 const handleInput = (event: Event) => {
   if (isInputClicked) {
+    resultsStore.setLoadingAutocomplete(true);
     const inputElement = event.target as HTMLInputElement;
     debounceSearch.value = inputElement.value;
   }

@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 
 interface State {
   loading: boolean;
+  loadingAutocomplete: boolean;
   tab: Tab;
   autocompleteResults: AutoCompleteResultT,
   results: Event[] | Hotel[]
@@ -11,6 +12,7 @@ interface State {
 export const useResultsStore = defineStore("results", {
   state: (): State => ({
     loading: false,
+    loadingAutocomplete: false,
     tab: Tab.event,
     autocompleteResults: [],
     results: [],
@@ -19,6 +21,9 @@ export const useResultsStore = defineStore("results", {
   actions: {
     setLoading(value: boolean) {
       this.loading = value;
+    },
+    setLoadingAutocomplete(value: boolean) {
+      this.loadingAutocomplete = value;
     },
     setTab(tab: Tab) {
       this.tab = tab;
